@@ -1,0 +1,35 @@
+Aufgabe 4
+
+Bei jeder Leseaktion wird current_version mitgelesen. Beim Update wird current_version auf Änderungen überprüft. Falls der Wert sich verändert hat schlägt das Update wegen der nicht erfüllten Bedingung fehl.
+Alternativ könnte dazu auch ein Timestamp verwendet werden.
+
+
+
+Aufgabe 5   
+
+Prozess A liest Datensatz D 		[ok]
+Prozess B liest Datensatz D 		[ok]
+Prozess B aktualisiert Datensatz D 	[ok]
+Prozess A aktualisiert Datensatz D 	Fehler weil sich die Version bereits geändert hat
+
+
+Im letzten Schritt muss der Prozess A neu gestartet werden, die Daten neu gelesen und verarbeitet werden. Der Benutzer muss allenfalls über den Fehler informiert werden, falls von Ihm weiterer Input verlangt wird.
+
+
+Aufgabe 6
+
+Ein Datenlock kann auftreten wenn Share Locks verwendet werden.
+
+Prozess A liest und sperrt Datensatz D 
+Prozess B liest und sperrt Datensatz E 
+Prozess A will Datensatzt E lesen und sperren und wartet auf Prozess B
+Prozess B will Datensatzt D lesen und sperren und wartet auf Prozess A
+
+Beide Prozesse warten nun bis der jeweils andere den Datensatz frei gibt.
+
+
+
+Aufgabe 7 
+
+Der Non-Repeatable-Read kann eingedämmt werden, indem nach der ID und Version gesucht werden kann. So kann der Programmierer kurz vor dem Update eines Datensatztes einen anderen Datensatzt in einer anderen Tabelle auf seine "Aktualität" überprüfen.
+Lost-Update wird verhindert, indem nur dann ein Update ausgeführt wird wenn sich die Version nicht verändert hat.
